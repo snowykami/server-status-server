@@ -48,4 +48,4 @@ TOKEN=114514
 
 ### 主机监控
 
-- 请在需要监控的服务器主机上安装 [server-status-client](../server-status-client)
+- 请在需要监控的服务器主机上安装 [server-status-client](https://github.com/snowykami/server-status-client)
