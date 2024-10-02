@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+env:
+  GIT_TERMINAL_PROMPT: 1
+  GOPRIVATE: git.liteyuki.icu
+  GONOSUMDB: git.liteyuki.icu
+
 jobs:
   build:
     name: Build and Cross-Compile
