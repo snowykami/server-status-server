@@ -16,7 +16,7 @@ import (
 var h *server.Hertz
 
 func init() {
-	h = hertz.NewHertz([]config.Option{server.WithHostPorts(":8088")}, []app.HandlerFunc{})
+	h = hertz.NewHertz([]config.Option{server.WithHostPorts(":8090")}, []app.HandlerFunc{})
 	// cv api 状态客户端接口
 	h.Use(cors.Default())
 
@@ -32,11 +32,11 @@ func init() {
 	{
 		api.GET("/", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, api") })
 		api.GET("/status", frontend.OnGetServerStatus)
-
 	}
 
 	// 静态文件
 	h.GET("/*file", frontend.OnGetStaticFile)
+	//h.StaticFS("/", fs)
 }
 
 func Run() {

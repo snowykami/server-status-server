@@ -21,6 +21,7 @@ require (
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/cloudwego/netpoll v0.6.4 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.5 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/henrylee2cn/ameda v1.5.1 // indirect
 	github.com/henrylee2cn/goutil v1.0.1 // indirect
@@ -32,6 +33,7 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.10.0 // indirect
+	golang.org/x/net v0.27.0 // indirect
 	golang.org/x/sys v0.25.0 // indirect
 	golang.org/x/text v0.18.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
