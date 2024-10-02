@@ -9,7 +9,7 @@ type Report struct {
 		OS   struct {
 			Name    string `json:"name"`
 			Version string `json:"version"`
-		}
+		} `json:"os"`
 		Labels     []string `json:"labels"`      // 服务器标签
 		Location   string   `json:"location"`    // Chongqing, China
 		UpTime     int64    `json:"uptime"`      // uptime in seconds

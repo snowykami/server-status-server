@@ -21,6 +21,7 @@ func OnGetServerStatus(ctx context.Context, c *app.RequestContext) {
 }
 
 func OnGetStaticFile(ctx context.Context, c *app.RequestContext) {
+	c.Request.URI().Path()
 	file := c.Param("file")
 	fp := "./web/" + file
 
