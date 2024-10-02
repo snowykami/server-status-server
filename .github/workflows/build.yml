@@ -21,12 +21,12 @@ jobs:
     strategy:
       matrix:
         go-version: [1.22]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        arch: [amd64, arm64, arm, 386, ppc64, ppc64le, mips, mipsle, mips64, mips64le, s390x, riscv64]
+        os: [ubuntu-latest, windows-latest]
+        arch: [amd64, arm64, arm, 386]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Go
         uses: actions/setup-go@v3
@@ -41,7 +41,7 @@ jobs:
 
       - name: Build
         run: |
-          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows' || 'darwin' }}
+          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows'}}
           GOARCH=${{ matrix.arch }}
           go build -o build/${{ matrix.os }}-${{ matrix.arch }}/server-status-server cmd/main.go
 
