@@ -21,7 +21,8 @@ func init() {
 	if port == "" {
 		port = "8888"
 	}
-	h = hertz.NewHertz([]config.Option{server.WithHostPorts("0.0.0.0:" + port)}, []app.HandlerFunc{})
+
+	h = hertz.NewHertz([]config.Option{server.WithHostPorts(":" + port)}, []app.HandlerFunc{})
 	// cv api 状态客户端接口
 	h.Use(cors.Default())
 
