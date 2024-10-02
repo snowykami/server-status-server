@@ -16,10 +16,6 @@ _✨ 服务器状态 - 服务端/后端 ✨_
 
 - 从 [Actions](https://github.com/snowykami/server-status-server/actions) 下载对应平台的二进制文件
 
-### Docker 安装
-
-- 从 Docker Hub 下载镜像
-  docker pull liteyuki/server-status-server
 
 ### 自行编译
 
