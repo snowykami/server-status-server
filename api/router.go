@@ -9,6 +9,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/config"
 	"github.com/hertz-contrib/cors"
+	"os"
 	"server-status-be/api/backend"
 	"server-status-be/api/frontend"
 )
@@ -16,7 +17,11 @@ import (
 var h *server.Hertz
 
 func init() {
-	h = hertz.NewHertz([]config.Option{server.WithHostPorts(":8090")}, []app.HandlerFunc{})
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8888"
+	}
+	h = hertz.NewHertz([]config.Option{server.WithHostPorts("0.0.0.0:" + port)}, []app.HandlerFunc{})
 	// cv api 状态客户端接口
 	h.Use(cors.Default())
 
