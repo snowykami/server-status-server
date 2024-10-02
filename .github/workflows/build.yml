@@ -1,0 +1,46 @@
+name: Build and Cross-Compile
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Cross-Compile
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        go-version: [1.19, 1.20]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Auth For Private Repo
+        run: git config --global url."https://${{ secrets.GITEA_TOKEN }}@git.liteyuki.icu".insteadOf "https://git.liteyuki.icu"
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Build
+        run: |
+          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows' || 'darwin' }}
+          GOARCH=amd64
+          go build -o build/${{ matrix.os }}/server-status-server
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: server-status-server-${{ matrix.os }}-${{ matrix.go-version }}
+          path: build/${{ matrix.os }}/server-status-server
