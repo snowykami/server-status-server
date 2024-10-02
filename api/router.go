@@ -4,37 +4,49 @@ import (
 	"context"
 	"git.liteyuki.icu/backend/golite/hertz"
 	"git.liteyuki.icu/backend/golite/logger"
+	"github.com/LiteyukiStudio/go-logger/log"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/config"
+	"github.com/hertz-contrib/cors"
+	"server-status-be/api/backend"
+	"server-status-be/api/frontend"
 )
 
 var h *server.Hertz
 
 func init() {
 	h = hertz.NewHertz([]config.Option{server.WithHostPorts(":8088")}, []app.HandlerFunc{})
-	h.GET("/", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, status be") })
 	// cv api 状态客户端接口
-	be := h.Group("/be", BeAuth)
+	h.Use(cors.Default())
+
+	client := h.Group("/client", backend.BeAuth)
 	{
-		be.GET("/", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, be") })
-		be.POST("/report", func(ctx context.Context, c *app.RequestContext) {})
+		client.GET("/ping", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, cv") })
+		client.POST("/status", backend.OnPostStatus)
+		client.DELETE("/host", backend.OnDeleteHost)
 	}
 
-	// fe api 前端接口
-	fe := h.Group("/fe")
+	// api api 前端接口
+	api := h.Group("/api")
 	{
-		fe.GET("/", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, fe") })
+		api.GET("/", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, api") })
+		api.GET("/status", frontend.OnGetServerStatus)
+
 	}
+
+	// 静态文件
+	h.GET("/*file", frontend.OnGetStaticFile)
 }
 
 func Run() {
+
 	go func() {
 		err := h.Run()
 		if err != nil {
 			logger.Error("Run error: ", err)
 		}
 	}()
-
+	log.Info("Server running...")
 	select {}
 }

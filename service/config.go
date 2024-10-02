@@ -19,4 +19,5 @@ func init() {
 	if token != "" {
 		Token = token
 	}
+	log.Info("Token: ", Token)
 }
