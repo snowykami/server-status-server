@@ -21,8 +21,8 @@ jobs:
     strategy:
       matrix:
         go-version: [1.22]
-        os: [ubuntu-latest, windows-latest]
-        arch: [ "amd64", "arm64", "arm", "386" ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        arch: [amd64, arm64, arm, 386, ppc64, ppc64le, mips, mipsle, mips64, mips64le, s390x, riscv64]
 
     steps:
       - name: Checkout code
@@ -41,12 +41,13 @@ jobs:
 
       - name: Build
         run: |
-          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows'}}
+          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows' || 'darwin' }}
           GOARCH=${{ matrix.arch }}
-          go build -o build/${{ matrix.os }}/server-status-server
+          go build -o build/${{ matrix.os }}-${{ matrix.arch }}/server-status-server cmd/main.go
 
       - name: Upload binaries
         uses: actions/upload-artifact@v3
         with:
-          name: server-status-server-${{ matrix.os }}-${{ matrix.go-version }}
-          path: build/${{ matrix.os }}/server-status-server
+          name: server-status-server-${{ matrix.os }}-${{ matrix.arch }}
+          path: build/${{ matrix.os }}-${{ matrix.arch }}/server-status-server
+          if-no-files-found: warn
