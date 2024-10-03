@@ -15,6 +15,7 @@ type Report struct {
 		UpTime     int64    `json:"uptime"`      // uptime in seconds
 		Link       string   `json:"link"`        // 链接或是nil
 		ObservedAt int64    `json:"observed_at"` // unix timestamp
+		StartTime  int64    `json:"start_time"`  // unix timestamp
 	} `json:"meta"`
 
 	Hardware struct {
