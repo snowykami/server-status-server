@@ -39,10 +39,13 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
+      - name: Set up build environment
+        run: |
+          echo "GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows' || 'darwin' }}" >> $GITHUB_ENV
+          echo "GOARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+
       - name: Build
         run: |
-          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows'}}
-          GOARCH=${{ matrix.arch }}
           go build -o build/${{ GOOS }}-${{ matrix.arch }}/server-status-server main.go
 
       - name: Upload binaries
