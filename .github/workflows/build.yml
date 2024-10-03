@@ -41,8 +41,8 @@ jobs:
 
       - name: Build
         run: |
-          export GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows'}}
-          export GOARCH=${{ matrix.arch }}
+          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows'}}
+          GOARCH=${{ matrix.arch }}
           go build -o build/${{ GOOS }}-${{ matrix.arch }}/server-status-server main.go
 
       - name: Upload binaries
