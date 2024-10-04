@@ -32,7 +32,7 @@ type Report struct {
 			Logics  int     `json:"logics"`
 			Percent float32 `json:"percent"` // 0-100
 		} `json:"cpu"`
-		Disks map[string]map[string]int64 `json:"disks"`
+		Disks map[string]map[string]interface{} `json:"disks"`
 		Net   struct {
 			Up   int64  `json:"up"`
 			Down int64  `json:"down"`
