@@ -3,19 +3,16 @@ package dao
 type Report struct {
 	// 鉴权字段
 	Meta struct {
-		ID   string `json:"id"` // 服务器ID，用于标识服务器
-		Name string `json:"name"`
-		OS   struct {
-			Name    string `json:"name"`
-			Version string `json:"version"`
-		} `json:"os"`
-		Labels     []string `json:"labels"`      // 服务器标签
-		Location   string   `json:"location"`    // Chongqing, China
-		UpTime     int64    `json:"uptime"`      // uptime in seconds
-		Link       string   `json:"link"`        // 链接或是nil
-		ObservedAt int64    `json:"observed_at"` // unix timestamp
-		StartTime  int64    `json:"start_time"`  // unix timestamp
-		Timezone   string   `json:"timezone"`    // Asia/Shanghai
+		ID         string                 `json:"id"` // 服务器ID，用于标识服务器
+		Name       string                 `json:"name"`
+		OS         map[string]interface{} `json:"os"`          // 操作系统信息
+		Labels     []string               `json:"labels"`      // 服务器标签
+		Location   string                 `json:"location"`    // Chongqing, China
+		UpTime     int64                  `json:"uptime"`      // uptime in seconds
+		Link       string                 `json:"link"`        // 链接或是nil
+		ObservedAt int64                  `json:"observed_at"` // unix timestamp
+		StartTime  int64                  `json:"start_time"`  // unix timestamp
+		Timezone   string                 `json:"timezone"`    // Asia/Shanghai
 	} `json:"meta"`
 
 	Hardware struct {
