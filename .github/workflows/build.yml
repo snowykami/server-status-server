@@ -41,7 +41,12 @@ jobs:
 
       - name: Build
         run: |
-          GOOS=${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'windows-latest' && 'windows'}} GOARCH=${{ matrix.arch }} go build -o build/${{ matrix.os }}-${{ matrix.arch }}/server-status-server main.go
+          CGO_ENABLED=0
+          GOOS=${{ matrix.os }}
+          GOARCH=${{ matrix.arch }}
+          OUTPUT_NAME=server-status-server
+          if [ "${{ matrix.os }}" == "windows-latest" ]; then OUTPUT_NAME="${OUTPUT_NAME}.exe"; fi
+          go build -o build/${{ env.GOOS }}-${{ env.GOARCH }}/${OUTPUT_NAME} main.go
 
       - name: Upload binaries
         uses: actions/upload-artifact@v3
