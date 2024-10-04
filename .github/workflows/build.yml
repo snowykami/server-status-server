@@ -23,10 +23,10 @@ jobs:
         goos: [ linux, windows, darwin ]
         goarch: [ amd64, arm64, arm, "386" ]
         exclude:
-          - os: darwin
-            arch: "386"
-          - os: darwin
-            arch: arm
+          - goos: darwin
+            goarch: "386"
+          - goos: darwin
+            goarch: arm
 
     steps:
       - name: Checkout code
