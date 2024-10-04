@@ -20,12 +20,11 @@ jobs:
 
     strategy:
       matrix:
-        go-version: [1.22]
-        os: [linux, windows, darwin]
-        arch: [amd64, arm64, arm, 386]
+        goos: [ linux, windows, darwin ]
+        goarch: [ amd64, arm64, arm, "386" ]
         exclude:
           - os: darwin
-            arch: 386
+            arch: "386"
           - os: darwin
             arch: arm
 
@@ -36,7 +35,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: 1.22
 
       - name: Auth For Private Dependencies
         run: git config --global url."https://${{ secrets.GITEA_TOKEN }}@git.liteyuki.icu".insteadOf "https://git.liteyuki.icu"
@@ -44,25 +43,19 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
-      - name: Set environment variables
-        run: |
-          if [ "${{ matrix.os }}" == "windows" ]; then
-            echo "GOOS=windows" >> $GITHUB_ENV
-          else
-            echo "GOOS=linux" >> $GITHUB_ENV
-          fi
-          echo "GOARCH=${{ matrix.arch }}" >> $GITHUB_ENV
-
       - name: Compile
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
         run: |
-          CGO_ENABLED=0
           OUTPUT_NAME=server-status-server
-          if [ "${{ matrix.os }}" == "windows" ]; then OUTPUT_NAME="${OUTPUT_NAME}.exe"; fi
+          if [ "${{ matrix.goos }}" == "windows" ]; then OUTPUT_NAME="${OUTPUT_NAME}.exe"; fi
           go build -o build/${GOOS}-${GOARCH}/${OUTPUT_NAME} main.go
 
       - name: Upload binaries
         uses: actions/upload-artifact@v3
         with:
-          name: server-status-server-${{ matrix.os }}-${{ matrix.arch }}
-          path: build/${{ matrix.os }}-${{ matrix.arch }}/server-status-server*
+          name: server-status-server-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: build/${{ matrix.goos }}-${{ matrix.goarch }}/server-status-server*
           if-no-files-found: warn
