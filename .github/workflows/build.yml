@@ -15,7 +15,7 @@ env:
 
 jobs:
   build:
-    name: Build and Cross-Compile
+    name: Build
     runs-on: ubuntu-latest
 
     strategy:
