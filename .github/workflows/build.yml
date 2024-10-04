@@ -47,7 +47,6 @@ jobs:
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
-          CGO_ENABLED: 0
         run: |
           OUTPUT_NAME=server-status-server
           if [ "${{ matrix.goos }}" == "windows" ]; then OUTPUT_NAME="${OUTPUT_NAME}.exe"; fi
