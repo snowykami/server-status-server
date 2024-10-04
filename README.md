@@ -40,7 +40,7 @@ _✨ 服务器状态 - 服务端/后端 ✨_
 
 ### 监控
 
-- 请在需要监控的服务器主机上部署 [server-status-client](https://github.com/snowykami/server-status-client)
+- 请在需要监控的服务器主机上部署客户端探针 [server-status-client](https://github.com/snowykami/server-status-client)
 
 ## 📝 其他
 
