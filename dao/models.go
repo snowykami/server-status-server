@@ -15,6 +15,7 @@ type Report struct {
 		Link       string   `json:"link"`        // 链接或是nil
 		ObservedAt int64    `json:"observed_at"` // unix timestamp
 		StartTime  int64    `json:"start_time"`  // unix timestamp
+		Timezone   string   `json:"timezone"`    // Asia/Shanghai
 	} `json:"meta"`
 
 	Hardware struct {
