@@ -2,7 +2,6 @@ package dao
 
 type Report struct {
 	// 鉴权字段
-
 	Meta struct {
 		ID   string `json:"id"` // 服务器ID，用于标识服务器
 		Name string `json:"name"`
