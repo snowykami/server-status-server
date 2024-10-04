@@ -51,3 +51,5 @@ _✨ 服务器状态 - 服务端/后端 ✨_
 - 前端源码在[server-status-web](https://github.com/snowykami/server-status-web)
 - 接口定义请查看源代码的[api/router](./api/router.go)
 
+### 32位系统
+- 由于[cloudwego/netpoll Issue #252](https://github.com/cloudwego/netpoll/issues/252), 暂不支持32位系统
