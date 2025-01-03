@@ -41,8 +41,8 @@ jobs:
       - name: Pull and build front-end
         run: |
           git clone https://github.com/snowykami/server-status-web
-          cd server-status-web
           npm install -g pnpm
+          cd server-status-web
           pnpm install
           pnpm run build
           cp -r dist api/frontend/web
