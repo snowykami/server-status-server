@@ -38,7 +38,6 @@ func init() {
 	{
 		api.GET("/", func(ctx context.Context, c *app.RequestContext) { c.JSON(200, "Hello, api") })
 		api.GET("/status", frontend.OnGetServerStatus)
-		api.GET("/timeout", frontend.OnGetTimeout)
 	}
 
 	// 静态文件

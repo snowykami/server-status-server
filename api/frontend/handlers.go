@@ -3,11 +3,13 @@ package frontend
 import (
 	"context"
 	"embed"
+	"server-status-be/dao"
+	"server-status-be/service"
+	"strings"
+
 	"github.com/LiteyukiStudio/go-logger/log"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/gabriel-vasile/mimetype"
-	"server-status-be/dao"
-	"strings"
 )
 
 //go:embed web/*
@@ -23,6 +25,8 @@ func OnGetServerStatus(ctx context.Context, c *app.RequestContext) {
 			ret[reportName] = v
 		}
 	}
+	// 加入timeout参数
+	ret["timeout"] = service.Timeout
 	c.JSON(200, ret)
 	ctx.Done()
 }
@@ -61,10 +65,4 @@ func OnGetStaticFile(ctx context.Context, c *app.RequestContext) {
 	}
 	log.Info("Get file: ", fp, " with content type: ", contentType)
 	c.Data(200, contentType, data)
-}
-
-func OnGetTimeout(ctx context.Context, c *app.RequestContext) {
-	log.Info("Timeout")
-	c.JSON(200, "Timeout")
-	ctx.Done()
 }
