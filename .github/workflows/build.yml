@@ -42,6 +42,7 @@ jobs:
         run: |
           git clone https://github.com/snowykami/server-status-web
           cd server-status-web
+          npm install -g pnpm
           pnpm install
           pnpm run build
           cp -r dist api/frontend/web
