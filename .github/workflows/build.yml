@@ -42,9 +42,7 @@ jobs:
 
       - name: Pull and build front-end
         run: |
-          git subtree pull --prefix=server-status-web https://github.com/snowykami/server-status-web.git main --squash
-
-          cd server-status-web
+          cd web
           npm install -g pnpm
           pnpm install --no-frozen-lockfile
           pnpm run build
