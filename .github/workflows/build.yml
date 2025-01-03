@@ -27,7 +27,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          submodules: recursive
           fetch-depth: 0
 
       - name: Setup Go
@@ -43,6 +42,8 @@ jobs:
 
       - name: Pull and build front-end
         run: |
+          git subtree pull --prefix=server-status-web https://github.com/snowykami/server-status-web.git main --squash
+
           cd server-status-web
           npm install -g pnpm
           pnpm install --no-frozen-lockfile
