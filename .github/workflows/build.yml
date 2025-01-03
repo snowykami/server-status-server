@@ -45,7 +45,9 @@ jobs:
           cd server-status-web
           pnpm install --no-frozen-lockfile
           pnpm run build
-          cp -r dist api/frontend/web
+
+          mkdir -p ../server-status-server/api/frontend/web
+          cp -r dist ../server-status-server/api/frontend/web
 
       - name: Compile
         env:
