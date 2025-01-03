@@ -47,8 +47,8 @@ jobs:
           npm install -g pnpm
           pnpm install --no-frozen-lockfile
           pnpm run build
-          mkdir -p ../server-status-server/api/frontend/web
-          cp -r dist ../server-status-server/api/frontend/web
+          mkdir -p ../api/frontend/web
+          cp -r dist ../api/frontend/web
 
       - name: Compile
         env:
