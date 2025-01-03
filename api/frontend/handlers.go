@@ -59,7 +59,12 @@ func OnGetStaticFile(ctx context.Context, c *app.RequestContext) {
 	} else if strings.HasSuffix(fp, ".svg") {
 		contentType = "image/svg+xml"
 	}
-
 	log.Info("Get file: ", fp, " with content type: ", contentType)
 	c.Data(200, contentType, data)
+}
+
+func OnGetTimeout(ctx context.Context, c *app.RequestContext) {
+	log.Info("Timeout")
+	c.JSON(200, "Timeout")
+	ctx.Done()
 }

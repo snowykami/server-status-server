@@ -38,6 +38,14 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
+      - name: Pull and build front-end
+        run: |
+          git clone https://github.com/snowykami/server-status-web
+          cd server-status-web
+          pnpm install
+          pnpm run build
+          cp -r dist api/frontend/web
+
       - name: Compile
         env:
           GOOS: ${{ matrix.goos }}
