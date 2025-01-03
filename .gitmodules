@@ -1,0 +1,3 @@
+[submodule "server-status-web"]
+	path = server-status-web
+	url = https://github.com/snowykami/server-status-web
