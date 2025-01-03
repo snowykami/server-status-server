@@ -45,7 +45,7 @@ jobs:
           cd server-status-web
           pnpm install --no-frozen-lockfile
           pnpm run build
-
+          ls -al
           mkdir -p ../server-status-server/api/frontend/web
           cp -r dist ../server-status-server/api/frontend/web
 
