@@ -42,11 +42,11 @@ jobs:
 
       - name: Pull and build front-end
         run: |
-          cd web
+          git clone https://github.com/snowykami/server-status-web
+          cd server-status-web
           npm install -g pnpm
           pnpm install --no-frozen-lockfile
           pnpm run build
-          ls -al
           mkdir -p ../server-status-server/api/frontend/web
           cp -r dist ../server-status-server/api/frontend/web
 
